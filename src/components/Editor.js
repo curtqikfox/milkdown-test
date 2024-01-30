@@ -44,6 +44,3 @@ export const createEditor = ({
       })
     );
 };
-
-// Add CSS rule to make text left-aligned
-root.style.textAlign = "left";
