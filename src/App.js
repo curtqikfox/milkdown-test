@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { MilkdownProvider } from '@milkdown/react'
+import { StrictMode } from 'react'
+import { MilkdownEditor } from './components/Editor'
 
-function App() {
+import { blockquoteSchema } from '@milkdown/preset-commonmark';
+import { $command, callCommand } from '@milkdown/utils';
+import { wrapIn } from '@milkdown/prose/commands';
+import { Editor } from '@milkdown/core';
+
+// const wrapInBlockquoteCommand = $command('WrapInBlockquote', (ctx) => () => wrapIn(blockquoteSchema.type(ctx)));
+
+// // // register the command when creating the editor
+// // const editor = Editor().make().use(wrapInBlockquoteCommand).create();
+
+// // call command
+// // editor.action(callCommand(wrapInBlockquoteCommand.key));
+// function wrapInHeadingImpl() {
+//   // use number as the type of argument
+//   // call command
+//   editor.action(callCommand(wrapInHeadingCommand.key)); // turn to h1 by default
+// }
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <StrictMode>
+      <MilkdownProvider>
+        <MilkdownEditor />
+      </MilkdownProvider>
+    </StrictMode>
+  )
 }
 
-export default App;
+export default App
