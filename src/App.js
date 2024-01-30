@@ -1,33 +1,24 @@
-import { MilkdownProvider } from '@milkdown/react'
-import { StrictMode } from 'react'
-import { MilkdownEditor } from './components/Editor'
+// Components
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import { useCallback, useState } from "react";
+import Milkdown from "./components/index";
 
-import { blockquoteSchema } from '@milkdown/preset-commonmark';
-import { $command, callCommand } from '@milkdown/utils';
-import { wrapIn } from '@milkdown/prose/commands';
-import { Editor } from '@milkdown/core';
+import "./index.css";
 
-// const wrapInBlockquoteCommand = $command('WrapInBlockquote', (ctx) => () => wrapIn(blockquoteSchema.type(ctx)));
+export default function App() {
+  const [content, setContent] = useState("");
 
-// // // register the command when creating the editor
-// // const editor = Editor().make().use(wrapInBlockquoteCommand).create();
+  const onTextChange = useCallback((ev) => setContent(ev), []);
 
-// // call command
-// // editor.action(callCommand(wrapInBlockquoteCommand.key));
-// function wrapInHeadingImpl() {
-//   // use number as the type of argument
-//   // call command
-//   editor.action(callCommand(wrapInHeadingCommand.key)); // turn to h1 by default
-// }
-
-const App = () => {
   return (
-    <StrictMode>
-      <MilkdownProvider>
-        <MilkdownEditor />
-      </MilkdownProvider>
-    </StrictMode>
-  )
+    <div className="App">
+      <Box>
+        <Typography variant="subtitle1" className="title">
+          Input here content
+        </Typography>
+        <Milkdown onChange={onTextChange} value={content} />
+      </Box>
+    </div>
+  );
 }
-
-export default App
