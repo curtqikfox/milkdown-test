@@ -6,6 +6,8 @@ import {
 } from "@milkdown/preset-commonmark";
 // import { EditorView } from "@milkdown/prose/view";
 import { setBlockType } from "@milkdown/prose/commands";
+import { redo, undo } from '@milkdown/prose/history';
+
 
 const hasMark = (state, type) => {
   if (!type) return false;
@@ -40,12 +42,40 @@ export const menuConfig = [
   ],
   [
     {
+      type: 'button',
+      icon: 'undo',
+      key: 'Undo',
+      disabled: (view) => {
+        return !undo(view.state);
+      },
+    },
+    {
+      type: 'button',
+      icon: 'redo',
+      key: 'Redo',
+      disabled: (view) => {
+        return !redo(view.state);
+      },
+    },
+    {
+      type: 'button',
+      icon: 'image',
+      key: 'InsertImage',
+    },
+    {
       type: "button",
       icon: "bold",
       key: "ToggleBold",
       active: (view) => hasMark(view.state, view.state.schema.marks.strong),
       disabled: (view) => !view.state.schema.marks.strong
     },
+    // {
+    //   type: "button",
+    //   icon: "bold",
+    //   key: "ToggleUnderline",
+    //   active: (view) => hasMark(view.state, view.state.schema.marks.strong),
+    //   disabled: (view) => !view.state.schema.marks.strong
+    // },
     {
       type: "button",
       icon: "italic",

@@ -8,6 +8,10 @@ import { gfm } from "@milkdown/preset-gfm";
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 import { nord } from "@milkdown/theme-nord";
 import { emoji } from "@milkdown/plugin-emoji";
+import { math } from '@milkdown/plugin-math';
+import { upload } from '@milkdown/plugin-upload';
+import { diagram } from '@milkdown/plugin-diagram';
+import { slash } from '@milkdown/plugin-slash';
 import { menu, menuPlugin } from "@milkdown/plugin-menu";
 import { menuConfig } from "./config";
 
@@ -38,6 +42,10 @@ export const createEditor = ({
     .use(gfm)
     .use(listener)
     .use(emoji)
+    .use(math)
+    .use(diagram)
+    .use(slash)
+    .use(upload)
     .use(
       menu.configure(menuPlugin, {
         config: menuConfig
