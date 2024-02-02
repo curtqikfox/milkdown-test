@@ -73,10 +73,10 @@ function Milkdown({ onChange, value, editable, spellcheck }) {
 
   useEffect(() => {
     // Run the command every time the context is updated
-    console.log("Editor 2");
-    console.log(editor);
-    console.log(editor.editor.dom);
-    console.log(editor.editor.dom.current);
+    // console.log("Editor 2");
+    // console.log(editor);
+    // console.log(editor.editor.dom);
+    // console.log(editor.editor.dom.current);
     addButtonToToolbar();
 
     var pgs = document.getElementsByClassName("paragraph")
@@ -85,35 +85,28 @@ function Milkdown({ onChange, value, editable, spellcheck }) {
 
     if (pgs.length && editorElem.length) {
       editorElem = editorElem[0]
-      console.log(editorElem)
-      console.log(editorElem.children)
       console.log("\n-----------------------------------\n")
       for (var i = 0; i < pgs.length; i++) {
         var paragraph = pgs[i];
-        console.log(paragraph)
-        console.log(paragraph.parentElement)
-        console.log(i)
-        console.log(pgs.length)
-        var replacementParagraph = 
-        `<div class='paragraph' \
+        var replacementParagraph = document.createElement("div");
+        replacementParagraph.innerHTML = `<p class='paragraph qik' \
           style='height: 50px; \
           width: 50px; \
           background-color: lightgrey; \
           border-radius: 5px'> \
           ${paragraph.innerHTML} \
-        </div>`
-         // editorElem.replaceChild(paragraph, replacementParagraph)
-        console.log("replacing a paragraph")
-        editorElem.removeChild(paragraph)
-        // editorElem.appendChild(replacementParagraph)
-        // editorElem.insertBefore(pgs[i], replacementParagraph)
+        </p>`;
+        // console.log("replacing a paragraph")
+        // if (!paragraph.classList.contains("qik")) {
+        //   editorElem.removeChild(paragraph)
+        //   editorElem.appendChild(replacementParagraph)
+        // }
         break;
       }
     }
 
     // fetch(editor);
   }, [editor]);
-
 
   return (
     <Box className={classes.root}>
