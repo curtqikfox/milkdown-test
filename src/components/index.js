@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactEditor, useEditor } from "@milkdown/react";
 
 // Components
@@ -35,15 +35,52 @@ const useStyles = makeStyles(() =>
 function Milkdown({ onChange, value, editable, spellcheck }) {
   const classes = useStyles();
 
+
   const editor = useEditor((root) => {
-    return createEditor({
+    var milkdownEditor = createEditor({
       root,
       onChange,
       value,
       editable,
       spellcheck
     });
+    console.log("milkdownEditor")
+    console.log(milkdownEditor)
+    console.log(milkdownEditor.ctx)
+    // milkdownEditor.action(callCommand(testCommand));
+    return milkdownEditor
   });
+
+  // fetch(editor)
+  // const instance = useInstance();
+
+  useEffect(() => {
+    // Run the command every time the context is updated
+    // editor.action(callCommand(testCommand));
+    // console.log("Editor 1");
+    // console.log(editor);
+    // console.log(editor.dom);
+    console.log("Editor 2");
+    console.log(editor);
+    console.log(editor.editor.dom);
+    console.log(editor.editor.dom.current);
+    var menu = document.getElementsByClassName("milkdown-menu")
+    console.log(menu)
+    if (menu && menu.length) {
+      console.log(menu[0])
+      var toolbarContainer = document.createElement("div");
+      toolbarContainer.style.height = menu[0].clientHeight + "px";
+      toolbarContainer.style.width = toolbarContainer.style.height;
+      toolbarContainer.style.backgroundColor = "lightgrey"
+      toolbarContainer.style.borderRadius = "5px"
+      menu = menu[0]
+
+      menu.appendChild(toolbarContainer)
+    }
+
+    // fetch(editor);
+  }, [editor]);
+
 
   return (
     <Box className={classes.root}>

@@ -14,6 +14,10 @@ import { diagram } from '@milkdown/plugin-diagram';
 import { slash } from '@milkdown/plugin-slash';
 import { menu, menuPlugin } from "@milkdown/plugin-menu";
 import { menuConfig } from "./config";
+import { $command } from '@milkdown/utils';
+
+
+export const testCommand = $command('WrapInBlockquote', () => console.log("testCommand Ran"));
 
 export const createEditor = ({
   root,
@@ -46,6 +50,7 @@ export const createEditor = ({
     .use(diagram)
     .use(slash)
     .use(upload)
+    .use(testCommand)
     .use(
       menu.configure(menuPlugin, {
         config: menuConfig
