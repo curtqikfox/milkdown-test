@@ -9,7 +9,7 @@ import "./index.css";
 export default function App() {
   const [content, setContent] = useState("");
 
-  const onTextChange = useCallback((ev) => setContent(ev), []);
+  const onTextChange = useCallback((ev) => {console.log(ev); setContent(ev)}, []);
 
   return (
     <div className="App">

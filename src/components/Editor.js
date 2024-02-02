@@ -15,9 +15,12 @@ import { slash } from '@milkdown/plugin-slash';
 import { menu, menuPlugin } from "@milkdown/plugin-menu";
 import { menuConfig } from "./config";
 import { $command } from '@milkdown/utils';
+import { history } from '@milkdown/plugin-history';
 
 
 export const testCommand = $command('WrapInBlockquote', () => console.log("testCommand Ran"));
+
+// let output = '';
 
 export const createEditor = ({
   root,
@@ -31,7 +34,12 @@ export const createEditor = ({
       ctx.set(rootCtx, root);
 
       ctx.get(listenerCtx).markdownUpdated((_, markdown) => {
+        // console.log("markdown before")
+        // console.log(markdown)
         onChange(markdown);
+        // output = markdown;
+        // console.log("markdown after")
+        // console.log(markdown)
       });
 
       ctx.set(editorViewOptionsCtx, {
@@ -50,6 +58,7 @@ export const createEditor = ({
     .use(diagram)
     .use(slash)
     .use(upload)
+    .use(history)
     .use(testCommand)
     .use(
       menu.configure(menuPlugin, {

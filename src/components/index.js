@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import { createStyles } from "@material-ui/core";
 import { createEditor } from "./editor";
+import { paragraph } from "@milkdown/preset-commonmark";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -32,6 +33,22 @@ const useStyles = makeStyles(() =>
   })
 );
 
+function addButtonToToolbar() {
+  var menu = document.getElementsByClassName("milkdown-menu")
+  console.log(menu)
+  if (menu && menu.length) {
+    console.log(menu[0])
+    var toolbarContainer = document.createElement("div");
+    toolbarContainer.style.height = menu[0].clientHeight + "px";
+    toolbarContainer.style.width = toolbarContainer.style.height;
+    toolbarContainer.style.backgroundColor = "lightgrey"
+    toolbarContainer.style.borderRadius = "5px"
+    menu = menu[0]
+
+    menu.appendChild(toolbarContainer)
+  }
+}
+
 function Milkdown({ onChange, value, editable, spellcheck }) {
   const classes = useStyles();
 
@@ -56,26 +73,42 @@ function Milkdown({ onChange, value, editable, spellcheck }) {
 
   useEffect(() => {
     // Run the command every time the context is updated
-    // editor.action(callCommand(testCommand));
-    // console.log("Editor 1");
-    // console.log(editor);
-    // console.log(editor.dom);
     console.log("Editor 2");
     console.log(editor);
     console.log(editor.editor.dom);
     console.log(editor.editor.dom.current);
-    var menu = document.getElementsByClassName("milkdown-menu")
-    console.log(menu)
-    if (menu && menu.length) {
-      console.log(menu[0])
-      var toolbarContainer = document.createElement("div");
-      toolbarContainer.style.height = menu[0].clientHeight + "px";
-      toolbarContainer.style.width = toolbarContainer.style.height;
-      toolbarContainer.style.backgroundColor = "lightgrey"
-      toolbarContainer.style.borderRadius = "5px"
-      menu = menu[0]
+    addButtonToToolbar();
 
-      menu.appendChild(toolbarContainer)
+    var pgs = document.getElementsByClassName("paragraph")
+    var editorElem = document.getElementsByClassName("editor")
+    console.log(pgs)
+
+    if (pgs.length && editorElem.length) {
+      editorElem = editorElem[0]
+      console.log(editorElem)
+      console.log(editorElem.children)
+      console.log("\n-----------------------------------\n")
+      for (var i = 0; i < pgs.length; i++) {
+        var paragraph = pgs[i];
+        console.log(paragraph)
+        console.log(paragraph.parentElement)
+        console.log(i)
+        console.log(pgs.length)
+        var replacementParagraph = 
+        `<div class='paragraph' \
+          style='height: 50px; \
+          width: 50px; \
+          background-color: lightgrey; \
+          border-radius: 5px'> \
+          ${paragraph.innerHTML} \
+        </div>`
+         // editorElem.replaceChild(paragraph, replacementParagraph)
+        console.log("replacing a paragraph")
+        editorElem.removeChild(paragraph)
+        // editorElem.appendChild(replacementParagraph)
+        // editorElem.insertBefore(pgs[i], replacementParagraph)
+        break;
+      }
     }
 
     // fetch(editor);
