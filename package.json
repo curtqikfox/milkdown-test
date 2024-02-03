@@ -7,6 +7,7 @@
     "@milkdown/core": "6.5.2",
     "@milkdown/plugin-diagram": "6.5.2",
     "@milkdown/plugin-emoji": "6.5.2",
+    "@milkdown/plugin-history": "6.5.2",
     "@milkdown/plugin-listener": "6.5.2",
     "@milkdown/plugin-math": "6.5.2",
     "@milkdown/plugin-menu": "6.5.2",
@@ -15,7 +16,6 @@
     "@milkdown/preset-commonmark": "6.5.2",
     "@milkdown/preset-gfm": "6.5.2",
     "@milkdown/prose": "6.5.2",
-    "@milkdown/plugin-history": "6.5.2",
     "@milkdown/react": "6.5.2",
     "@milkdown/theme-nord": "6.5.2",
     "material-design-icons": "3.0.1",
@@ -24,6 +24,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "remark-directive": "^3.0.0",
+    "typescript": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -49,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-dom": "^18.2.18"
   }
 }

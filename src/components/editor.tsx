@@ -13,12 +13,17 @@ import { upload } from '@milkdown/plugin-upload';
 import { diagram } from '@milkdown/plugin-diagram';
 import { slash } from '@milkdown/plugin-slash';
 import { menu, menuPlugin } from "@milkdown/plugin-menu";
-import { menuConfig } from "./config";
+import { menuConfig } from "./config.tsx";
 import { $command } from '@milkdown/utils';
 import { history } from '@milkdown/plugin-history';
 
+import { colorText } from "./color-text-plugin/index.tsx";
 
-export const testCommand = $command('WrapInBlockquote', () => console.log("testCommand Ran"));
+// import { AtomList, createNode } from "@milkdown/utils";
+// import { commonmark } from '@milkdown/preset-commonmark';
+// import { iframeInputRule, remarkDirective, iframeNode } from './custom-remark-plugin'
+
+// export const testCommand = $command('WrapInBlockquote', () => console.log("testCommand Ran"));
 
 // let output = '';
 
@@ -34,8 +39,8 @@ export const createEditor = ({
       ctx.set(rootCtx, root);
 
       ctx.get(listenerCtx).markdownUpdated((_, markdown) => {
-        // console.log("markdown before")
-        // console.log(markdown)
+        console.log("markdown before")
+        console.log(markdown)
         onChange(markdown);
         // output = markdown;
         // console.log("markdown after")
@@ -54,15 +59,18 @@ export const createEditor = ({
     .use(gfm)
     .use(listener)
     .use(emoji)
+    .use(colorText)
     .use(math)
     .use(diagram)
     .use(slash)
     .use(upload)
     .use(history)
-    .use(testCommand)
+    // .use(testCommand)
+    // .use([remarkDirective, iframeNode, iframeInputRule])
+    // .use(commonmark)
     .use(
       menu.configure(menuPlugin, {
-        config: menuConfig
+        config: menuConfig as any
       })
-    );
+    )
 };

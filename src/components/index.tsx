@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { createStyles } from "@material-ui/core";
-import { createEditor } from "./editor";
+import { createEditor } from "./editor.tsx";
 import { paragraph } from "@milkdown/preset-commonmark";
 
 const useStyles = makeStyles(() =>
@@ -34,20 +34,20 @@ const useStyles = makeStyles(() =>
 );
 
 function addButtonToToolbar() {
-  var menu = document.getElementsByClassName("milkdown-menu")
+  var menu = document.getElementsByClassName("milkdown-menu") as HTMLCollectionOf<Element>
   console.log(menu)
   if (menu && menu.length) {
     console.log(menu[0])
     var toolbarContainer = document.createElement("div");
-    toolbarContainer.style.height = menu[0].clientHeight + "px";
+    var menuElem = menu[0] as Element
+    toolbarContainer.style.height = menuElem.clientHeight + "px";
     toolbarContainer.style.width = toolbarContainer.style.height;
     toolbarContainer.style.backgroundColor = "lightgrey"
     toolbarContainer.style.borderRadius = "5px"
-    menu = menu[0]
 
-    menu.appendChild(toolbarContainer)
+    menuElem.appendChild(toolbarContainer)
   }
-}
+} 
 
 function Milkdown({ onChange, value, editable, spellcheck }) {
   const classes = useStyles();
@@ -80,11 +80,11 @@ function Milkdown({ onChange, value, editable, spellcheck }) {
     addButtonToToolbar();
 
     var pgs = document.getElementsByClassName("paragraph")
-    var editorElem = document.getElementsByClassName("editor")
+    var editorList = document.getElementsByClassName("editor") as HTMLCollectionOf<Element>
     console.log(pgs)
 
-    if (pgs.length && editorElem.length) {
-      editorElem = editorElem[0]
+    if (pgs.length && editorList.length) {
+      var editorElem = editorList[0] as Element
       console.log("\n-----------------------------------\n")
       for (var i = 0; i < pgs.length; i++) {
         var paragraph = pgs[i];
@@ -96,21 +96,14 @@ function Milkdown({ onChange, value, editable, spellcheck }) {
           border-radius: 5px'> \
           ${paragraph.innerHTML} \
         </p>`;
-        // console.log("replacing a paragraph")
-        // if (!paragraph.classList.contains("qik")) {
-        //   editorElem.removeChild(paragraph)
-        //   editorElem.appendChild(replacementParagraph)
-        // }
         break;
       }
     }
-
-    // fetch(editor);
   }, [editor]);
 
   return (
     <Box className={classes.root}>
-      <ReactEditor editor={editor} />
+      <ReactEditor editor={editor as any} />
     </Box>
   );
 }
